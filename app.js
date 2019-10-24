@@ -9,12 +9,15 @@ const db = require('./database/db');
 const check = require("./middleware/check");
 const cors = require('koa2-cors');
 
-// 跨域
-app.use(cors({
-    origin: "*",
-    methods: ['GET', 'POST', 'DELETE', 'PUT'],
-    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
-}));
+// // 跨域
+// app.use(cors({
+//     origin: "*",
+//     methods: ['GET', 'POST', 'DELETE', 'PUT'],
+//     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+// }));
+
+//允许跨域
+app.use(cors());
 
 app.use(bodyParser({
     multipart: true, // 开启上传
@@ -31,7 +34,7 @@ app.use(bodyParser({
 // 视图模板
 app.use(nunjucks({
     ext: 'html', // 指定视图文件默认后缀
-    path: path.join(__dirname, 'views'), // 指定视图目录
+    path: path.join(__dirname, 'static/dist'), // 指定视图目录
     nunjucksConfig: {
         trimBlocks: true // 开启转义，防止Xss漏洞
     }
