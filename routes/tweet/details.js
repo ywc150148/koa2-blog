@@ -11,7 +11,7 @@ router.get('/', async (ctx) => {
     let tweetID = ctx.params.tweetID,
         user = ctx.state.user,
         reviewQuantity;
-    console.log('1')
+        
     let tweet = await tweetModel.findOne({
         _id: tweetID,
         status: 0
@@ -40,7 +40,7 @@ router.get('/', async (ctx) => {
         path: 'targetUser',
         select: ['name', 'nickname', 'head_img', 'sex']
     }])
-    console.log('2')
+
     if (tweet === null) {
         ctx.response.body = {
             code: 1,
@@ -49,7 +49,6 @@ router.get('/', async (ctx) => {
         }
     }
 
-    console.log('3')
     // 因为上面通过tweet关联查询只查询前10条评论，所以需要重新查询评论总数
     await tweetCommentModel.count({
         tweetID,
@@ -58,13 +57,10 @@ router.get('/', async (ctx) => {
         reviewQuantity = res;
     })
 
-    console.log('4')
-
     // 浏览次数
     tweet.views++;
     await tweet.save();
 
-    console.log('5')
     let data = JSON.parse(JSON.stringify(tweet)),
         isLike = false,
         previousId;

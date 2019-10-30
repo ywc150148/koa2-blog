@@ -1,6 +1,9 @@
 const Router = require('koa-router')
 const router = new Router()
-const tweetModel = require('../../database/model').tweetModel;
+const {
+    userModel,
+    tweetModel
+} = require('../../database/model');
 const removeEmpty = require('../../tools/index').removeEmpty;
 
 router.get('/', async function (ctx) {
@@ -25,7 +28,7 @@ router.get('/', async function (ctx) {
     });
 
     await tweetModel.count(count_query).then(async (count) => {
-        await tweetModel.fetch(query).then(list => {
+        await tweetModel.fetch(query).then(async list => {
 
             // 不转一下修改报错
             list = JSON.parse(JSON.stringify(list));
@@ -37,6 +40,18 @@ router.get('/', async function (ctx) {
                 author,
                 response,
                 arr = [];
+
+
+            await userModel.findById({
+                _id: authorID
+            }, {
+                token: 0,
+                password: 0
+            }).then(res => {
+                author = res;
+            }).catch(err => {
+                ctx.throw(500, "查询用户失败")
+            })
 
             if (list.length < 1) {
                 msg = "没有数据";
@@ -65,9 +80,9 @@ router.get('/', async function (ctx) {
                 // 获取最后一条数据的_id，用于分页查询
                 previousId = list.slice(-1)[0]._id;
 
-                if (authorID) {
-                    author = list[0].authorID;
-                }
+                // if (authorID) {
+                //     author = list[0].authorID;
+                // }
             }
 
             response = {
@@ -78,6 +93,7 @@ router.get('/', async function (ctx) {
                 quantity: list.length,
                 previousId,
                 nomore,
+                author
             }
 
             // 如果是查询个人的tweet

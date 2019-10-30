@@ -101,14 +101,23 @@ router.get('/', async ctx => {
         // 保存tweet
         await tweet.save().then(doc => {
             let data = JSON.parse(JSON.stringify(doc));
-            data.reviewQuantity = data.comments.length;
+            let cc = JSON.parse(JSON.stringify(comment));
+
+            cc.reviewer = {
+                head_img:user.head_img,
+                name:user.name,
+                nickname:user.nickname,
+                sex:user.sex,
+                _id:user._id
+            }
 
             ctx.response.body = {
                 code: 0,
                 msg: '评论成功',
                 tweetID: _id,
                 commentID,
-                reviewQuantity: data.comments.length
+                reviewQuantity: data.comments.length,
+                data:cc
             }
         }).catch(err => {
             ctx.throw(500, '评论失败')
