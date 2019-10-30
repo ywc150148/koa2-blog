@@ -41,21 +41,18 @@ router.get('/', async function (ctx) {
                 response,
                 arr = [];
 
-
-            await userModel.findById({
-                _id: authorID
-            }, {
-                token: 0,
-                password: 0
-            }).then(res => {
-                author = res;
-            }).catch(err => {
-                ctx.throw(500, "查询用户失败")
-            })
-
             if (list.length < 1) {
                 msg = "没有数据";
                 nomore = true;
+
+                await userModel.findById({
+                    _id: authorID
+                },{token: 0,password:0 }).then(res => {
+                    author = res;
+                }).catch(err => {
+                    ctx.throw(500, "查询用户失败")
+                })
+
             } else {
 
                 list.forEach(element => {
@@ -80,9 +77,9 @@ router.get('/', async function (ctx) {
                 // 获取最后一条数据的_id，用于分页查询
                 previousId = list.slice(-1)[0]._id;
 
-                // if (authorID) {
-                //     author = list[0].authorID;
-                // }
+                if (authorID) {
+                    author = list[0].authorID;
+                }
             }
 
             response = {
