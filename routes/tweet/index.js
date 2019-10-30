@@ -11,6 +11,8 @@ router.get('/', async function (ctx) {
         authorID
     } = ctx.query;
 
+    let user = ctx.state.user;
+
     let query = removeEmpty({
         id: previousId,
         limit,
@@ -42,8 +44,21 @@ router.get('/', async function (ctx) {
             } else {
 
                 list.forEach(element => {
+
+                    let like_index;
+
+                    if (typeof user !== 'undefined' && element.likes.length > 0) {
+                        like_index = element.likes.indexOf(user._id.toString());
+                    } else {
+                        like_index = -1;
+                    }
+
+                    // like数
                     element.likes = element.likes.length;
-                    element.comments = element.comments.length;
+                    // 评论数
+                    element.reviewQuantity = element.comments.length
+                    // 是否like
+                    element.isLike = like_index >= 0 ? true : false;
                     arr.push(element)
                 });
 
@@ -59,10 +74,10 @@ router.get('/', async function (ctx) {
                 code,
                 msg,
                 data: arr,
-                quantity: list.length,
                 count,
+                quantity: list.length,
+                previousId,
                 nomore,
-                previousId
             }
 
             // 如果是查询个人的tweet

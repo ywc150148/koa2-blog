@@ -482,3 +482,16 @@
 // console.log(utc2beijing('2019-10-24T04:48:23.087Z'))
 
 
+let arr = ['d','e','h','g'];
+
+let _id = 'h'
+
+let isLike = arr.findIndex(item=>{
+    return item === _id
+ });
+
+ if(isLike) {
+    arr.splice(isLike,1);
+ }
+
+ console.log("arr",arr)

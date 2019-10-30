@@ -122,7 +122,7 @@ tools.deleteNull = (obj) => {
 tools.removeEmpty = (obj) => {
     Object.keys(obj).forEach(key => {
         if (obj[key] && typeof obj[key] === 'object') tools.removeEmpty(obj[key]);
-        else if ((obj[key] == null || obj[key] == '' || obj[key] === undefined) && obj[key] != 0) delete obj[key];
+        else if ((obj[key] == null || obj[key] == '' || obj[key] === undefined) && obj[key] !== 0) delete obj[key];
     });
     return obj;
 };
@@ -154,7 +154,7 @@ tools.dateGet = () => {
         dayOfweek = date.getDay() === 0 ? 7 : date.getDay();
 
     function add0(n) {
-        return n < 10 ? n += '0' : n;
+        return n < 10 ? n = '0' + n : n;
     }
 
     return {
@@ -168,7 +168,6 @@ tools.dateGet = () => {
         date_time: `${year}/${month}/${day} ${hour}:${minute}:${second}`,
     }
 }
-
 
 /* 小数点四舍五入，返回范围内的随机数
  *@method randomNumber

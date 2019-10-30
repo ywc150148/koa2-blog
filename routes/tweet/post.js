@@ -14,8 +14,7 @@ router.post('/', async function (ctx) {
         utc = moment.utc().format();
 
         images = images.length>0?images:[];
-
-        console.log("images",images)
+        
     let obj = removeEmpty({
         authorID: user._id,
         content,
@@ -26,9 +25,6 @@ router.post('/', async function (ctx) {
             updateAt: utc
         }
     });
-
-    
-    console.log("obj",obj)
 
     let tweet = new tweetModel(obj);
 

@@ -38,17 +38,58 @@ function routers(app) {
 	router.use('/v1/tweet', require('./tweet/index').routes());
 	router.use('/v1/tweet/post', require('./tweet/post').routes());
 	router.use('/v1/tweet/delete', require('./tweet/delete').routes());
+	router.use('/v1/tweet/like', require('./tweet/like').routes());
+	router.use('/v1/tweet/comment', require('./tweet/comment').routes());
+	router.use('/v1/tweet/details/:tweetID', require('./tweet/details').routes());
 
 }
 
 // 需要验证token的路径
-const requireAuthPath = [
-	"/v1/user/users",
-	'/v1/user/logOut',
-	'/v1/user/updateInfo',
-	'/v1/upload/uploadImg',
-	'/v1/tweet/post',
-	'/v1/tweet/delete'
+// const requireAuthPath = [
+// 	'/v1/user/users',
+// 	'/v1/user/logOut',
+// 	'/v1/user/updateInfo',
+// 	'/v1/upload/uploadImg',
+// 	'/v1/tweet/post',
+// 	'/v1/tweet/delete',
+// 	'/v1/tweet/like',
+// ]
+
+/* path: 需要验证token的路径
+ * method： all 验证全部请求方式
+ *			[get、post、put...] 验证多个请求方式
+ *			小写
+ */
+const requireAuthPath = [{
+		path: '/v1/user/users',
+		method: ["all"]
+	}, {
+		path: '/v1/user/logOut',
+		method: ["all"]
+	}, {
+		path: '/v1/user/updateInfo',
+		method: ["all"]
+	},
+	{
+		path: '/v1/upload/uploadImg',
+		method: ["all"]
+	},
+	{
+		path: '/v1/tweet/post',
+		method: ["all"]
+	},
+	{
+		path: '/v1/tweet/delete',
+		method: ["all"]
+	},
+	{
+		path: '/v1/tweet/like',
+		method: ["all"]
+	},
+	{
+		path:'/v1/tweet/comment',
+		method: ["post"]
+	}
 ]
 
 module.exports = {
