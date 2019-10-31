@@ -4,8 +4,8 @@ const {
     tweetModel,
     tweetCommentModel
 } = require('../../database/model');
-const moment = require('moment');
 const removeEmpty = require('../../tools/index').removeEmpty;
+const moment = require('moment');
 
 router.get('/', async ctx => {
         let {
@@ -63,6 +63,8 @@ router.get('/', async ctx => {
             } = ctx.request.body,
             utc = moment.utc().format(),
             mainComment;
+
+            console.log("utc",utc)
 
         mainCommentID = typeof mainCommentID !== 'undefined' ? mainCommentID : '';
 
@@ -147,7 +149,8 @@ router.get('/', async ctx => {
                 tweetID: _id,
                 commentID,
                 reviewQuantity: data.comments.length,
-                data: cc
+                data: cc,
+                utc
             }
         }).catch(err => {
             ctx.throw(500, '评论失败')
