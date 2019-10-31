@@ -11,7 +11,7 @@ router.get('/', async (ctx) => {
     let tweetID = ctx.params.tweetID,
         user = ctx.state.user,
         reviewQuantity;
-        
+
     let tweet = await tweetModel.findOne({
         _id: tweetID,
         status: 0
@@ -32,13 +32,14 @@ router.get('/', async (ctx) => {
             }
         },
         select: ['tweetID', 'reviewer', 'content', 'meta', 'status', 'mainCommentID', 'commentList'],
-        populate: {
+        populate: [{
             path: 'reviewer',
             select: ['name', 'nickname', 'head_img', 'sex']
-        }
-    }, {
-        path: 'targetUser',
-        select: ['name', 'nickname', 'head_img', 'sex']
+        },
+        {
+            path: 'targetUser',
+            select: ['name', 'nickname', 'head_img', 'sex']
+        }]
     }])
 
     if (tweet === null) {
@@ -55,7 +56,7 @@ router.get('/', async (ctx) => {
         status: 0
     }).then(res => {
         reviewQuantity = res;
-    })
+    });
 
     // 浏览次数
     tweet.views++;
@@ -85,7 +86,8 @@ router.get('/', async (ctx) => {
         msg: '请求成功',
         data: data,
         isLike,
-        previousId
+        previousId,
+        tweet
     }
 });
 

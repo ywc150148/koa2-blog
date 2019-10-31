@@ -9,8 +9,6 @@ router.post('/', async function (ctx) {
         _id = ctx.request.body._id,
         utc = moment.utc().format();
 
-    // console.log("user=='undefined'", typeof user !== 'undefined')
-
     await tweetModel.findOne({
         _id,
         status: 0
@@ -24,6 +22,7 @@ router.post('/', async function (ctx) {
             }
         });
 
+        // 点赞过，删除点赞
         if (isLike >= 0) {
             res.likes.splice(isLike, 1);
         } else {

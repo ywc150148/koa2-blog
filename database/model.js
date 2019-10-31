@@ -171,7 +171,7 @@ let tweetCommentSchema = new mongoose.Schema({
         ref: 'tweet',
         required: true
     },
-    mainCommentID: { // 主评论_id（此评论是主评论时不存在主评论_id）
+    mainCommentID: { // 主评论_id（主评论不存在主评论_id）即被评论内容的评论_id，
         type: mongoose.Schema.ObjectId,
         ref: 'tweetComment'
     },

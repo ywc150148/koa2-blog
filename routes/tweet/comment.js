@@ -14,7 +14,6 @@ router.get('/', async ctx => {
             previousId
         } = ctx.query, count;
 
-
         await tweetCommentModel.count({
             tweetID: tweetID,
             status: 0
@@ -47,7 +46,7 @@ router.get('/', async ctx => {
                 previousId,
                 count,
                 data: list,
-                quantity:list.length,
+                quantity: list.length,
                 nomore
             }
         }).catch(err => {
@@ -59,14 +58,19 @@ router.get('/', async ctx => {
         let user = ctx.state.user,
             {
                 _id,
-                commentValue
+                commentValue,
+                mainCommentID
             } = ctx.request.body,
-            utc = moment.utc().format();
+            utc = moment.utc().format(),
+            mainComment;
+
+        mainCommentID = typeof mainCommentID !== 'undefined' ? mainCommentID : '';
 
         let obj = removeEmpty({
             tweetID: typeof _id !== 'undefined' ? _id : '',
             reviewer: typeof user._id !== 'undefined' ? user._id : '',
             content: typeof commentValue !== 'undefined' ? commentValue : '',
+            mainCommentID,
             mate: {
                 createAt: utc,
                 updateAt: utc
@@ -85,6 +89,26 @@ router.get('/', async ctx => {
             }
         }
 
+        if (mainCommentID) {
+            // 被回复的评论 
+            mainComment = await tweetCommentModel.findOne({
+                _id: mainCommentID,
+                tweetID: typeof _id !== 'undefined' ? _id : '',
+                status: 0
+            }).populate([{
+                // 评论者
+                path: 'reviewer',
+                select: ['name', 'nickname', 'head_img', 'sex']
+            },
+            {
+                // 回复此评论的所以评论_id
+                path: 'commentList'
+            }]);
+
+            // 被评论用户_id 返回给前端
+            obj.targetUser = mainComment.reviewer;
+        }
+
         let comment = new tweetCommentModel(obj),
             commentID = '';
 
@@ -98,17 +122,23 @@ router.get('/', async ctx => {
         // 保存评论id
         tweet.comments.push(commentID)
 
+        if (mainCommentID) {
+            // 保存评论id
+            mainComment.commentList.push(commentID);
+            await mainComment.save();
+        }
+
         // 保存tweet
         await tweet.save().then(doc => {
             let data = JSON.parse(JSON.stringify(doc));
             let cc = JSON.parse(JSON.stringify(comment));
 
             cc.reviewer = {
-                head_img:user.head_img,
-                name:user.name,
-                nickname:user.nickname,
-                sex:user.sex,
-                _id:user._id
+                head_img: user.head_img,
+                name: user.name,
+                nickname: user.nickname,
+                sex: user.sex,
+                _id: user._id
             }
 
             ctx.response.body = {
@@ -117,7 +147,7 @@ router.get('/', async ctx => {
                 tweetID: _id,
                 commentID,
                 reviewQuantity: data.comments.length,
-                data:cc
+                data: cc
             }
         }).catch(err => {
             ctx.throw(500, '评论失败')
