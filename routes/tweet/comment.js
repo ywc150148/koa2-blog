@@ -64,8 +64,6 @@ router.get('/', async ctx => {
             utc = moment.utc().format(),
             mainComment;
 
-            console.log("utc",utc)
-
         mainCommentID = typeof mainCommentID !== 'undefined' ? mainCommentID : '';
 
         let obj = removeEmpty({
@@ -73,7 +71,7 @@ router.get('/', async ctx => {
             reviewer: typeof user._id !== 'undefined' ? user._id : '',
             content: typeof commentValue !== 'undefined' ? commentValue : '',
             mainCommentID,
-            mate: {
+            meta: {
                 createAt: utc,
                 updateAt: utc
             }

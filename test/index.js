@@ -482,16 +482,70 @@
 // console.log(utc2beijing('2019-10-24T04:48:23.087Z'))
 
 
-let arr = ['d','e','h','g'];
+// let arr = ['d','e','h','g'];
 
-let _id = 'h'
+// let _id = 'h'
 
-let isLike = arr.findIndex(item=>{
-    return item === _id
- });
+// let isLike = arr.findIndex(item=>{
+//     return item === _id
+//  });
 
- if(isLike) {
-    arr.splice(isLike,1);
- }
+//  if(isLike) {
+//     arr.splice(isLike,1);
+//  }
 
- console.log("arr",arr)
+//  console.log("arr",arr)
+
+
+// let dateGet = (timestamp = '') => {
+//    let date = timestamp != '' ? new Date(timestamp) : new Date,
+//        year = date.getFullYear(),
+//        month = add0(date.getMonth() + 1),
+//        day = add0(date.getDate()),
+//        hour = add0(date.getHours()),
+//        minute = add0(date.getMinutes()),
+//        second = add0(date.getSeconds()),
+//        dayOfweek = date.getDay() === 0 ? 7 : date.getDay();
+
+//    function add0(n) {
+//        return n < 10 ? n = '0' + n : n;
+//    }
+
+//    return {
+//        year,
+//        month,
+//        day,
+//        hour,
+//        minute,
+//        second,
+//        dayOfweek,
+//        date_time: `${year}/${month}/${day} ${hour}:${minute}:${second}`,
+//    }
+// }
+
+
+// const moment = require('moment');
+// console.log("moment().format();",moment().format())
+// console.log("moment.utc().format();",moment.utc().format())
+
+// let fm = moment().format();
+// let utcfm = moment.utc().format();
+// console.log('fm',fm)
+// console.log('utcfm',utcfm)
+// console.log('\r\n')
+// let fmts = new Date(fm).getTime()
+// let ucfmts = new Date(utcfm).getTime()
+// console.log('fmts',fmts)
+// console.log('ucfmts',ucfmts)
+// console.log('\r\n')
+// console.log('fmts date_time',dateGet(fmts).date_time)
+// console.log('ucfmts date_time',dateGet(ucfmts).date_time)
+// console.log('\r\n')
+// let ts = new Date('2019-10-31T15:09:56Z').getTime()
+// let date_time = dateGet(ts).date_time
+// console.log('2019-10-31T15:09:56Z ts=',ts)
+// console.log('date_time',date_time)
+
+// let j = moment.utc(new Date).format()
+
+// console.log("j",j)
