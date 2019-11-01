@@ -18,7 +18,7 @@ router.post('/', async (ctx) => {
             base64Array
         } = ctx.request.body,
         allowedFormat = ['jpeg', 'png', 'gif'],
-        typeArray = ['default', 'head', 'tweet'],
+        typeArray = ['default', 'head', 'tweet','blog'],
         code = 0,
         msg = '',
         pathArray = new Array();

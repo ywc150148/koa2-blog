@@ -28,7 +28,7 @@ router.get('/', async (ctx) => {
         options: {
             limit: 10,
             sort: {
-                '_id': -1
+                '_id': 1
             }
         },
         select: ['tweetID', 'reviewer', 'content', 'meta', 'status', 'mainCommentID', 'commentList'],

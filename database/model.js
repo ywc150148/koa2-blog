@@ -135,6 +135,7 @@ tweetSchema.statics = {
 
         if (id) {
             q._id = {
+                // 顺序
                 "$lt": id
             }
         }
@@ -146,6 +147,7 @@ tweetSchema.statics = {
         return this.find(q)
             .limit(limit)
             .sort({
+                // 顺序
                 '_id': -1
             })
             .populate({
@@ -238,14 +240,14 @@ tweetCommentSchema.statics = {
 
         if (id) {
             q._id = {
-                "$lt": id,
+                "$gt": id,
             }
         }
 
         return this.find(q)
             .limit(limit)
             .sort({
-                '_id': -1
+                '_id': 1
             })
             .populate([{
                 // 评论者
