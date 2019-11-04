@@ -41,7 +41,8 @@ function routers(app) {
 	router.use('/v1/tweet/like', require('./tweet/like').routes());
 	router.use('/v1/tweet/comment', require('./tweet/comment').routes());
 	router.use('/v1/tweet/details/:tweetID', require('./tweet/details').routes());
-
+	// blog
+	router.use('/v1/blog', require('./blog/index').routes());
 }
 
 // 需要验证token的路径

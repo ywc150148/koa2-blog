@@ -16,9 +16,11 @@ async function check(ctx, next) {
         rapIndex,
         code,
         msg,
-        collectError = (c, m) => {
+        opCode,
+        collectError = (c, m, p = '') => {
             code = c;
             msg = m;
+            opCode = p;
         }
 
     rapIndex = requireAuthPath.findIndex(item => {
@@ -38,7 +40,7 @@ async function check(ctx, next) {
 
         async function callBack(error, decoded) {
             if (error) {
-                return collectError(1, "token解析失败，无权访问，请登录");
+                return collectError(1, "token解析失败，无权访问，请登录",1);
             } else {
                 // 从数据库中匹配用户和token
                 let result = await findOne({
@@ -47,7 +49,7 @@ async function check(ctx, next) {
                 });
 
                 if (result.code !== 0) {
-                    return collectError(1, "用户token不匹配，请登录")
+                    return collectError(1, "用户token不匹配，请登录",1)
                 }
 
                 let {
@@ -58,7 +60,7 @@ async function check(ctx, next) {
                 // 获取当前系统时间转字符串截取前10位数
                 let now = new Date().getTime().toString().substring(0, 10);
                 if (now >= exp) {
-                    return collectError(1, "token已过期，请登录")
+                    return collectError(1, "token已过期，请登录",1)
                 }
 
                 // 全局变量
@@ -72,7 +74,8 @@ async function check(ctx, next) {
         ctx.status = 401;
         return ctx.response.body = {
             code: 1,
-            msg
+            opCode,
+            msg,
         }
     } else {
         await next();

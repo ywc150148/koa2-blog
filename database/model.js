@@ -266,6 +266,90 @@ tweetCommentSchema.statics = {
 // 将模式“编译”模型
 let tweetCommentModel = mongoose.model('tweetComment', tweetCommentSchema);
 
+
+
+////////
+
+// 定义模式
+let blogSchema = new mongoose.Schema({
+    authorID: {
+        // 作者_id
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    title: {
+        // 文章标题
+        type: String,
+        required: true,
+        maxlength: 100,
+        minlength: 1,
+    },
+    content: {
+        // 文章内容，markdown
+        type: String,
+        maxlength: 20,
+        minlength: 10,
+        required: true
+    },
+    categoryID: {
+        // 主分类_id
+        type: mongoose.Schema.ObjectId,
+        ref: 'Category',
+        // required: true
+    },
+    subCategoryID: {
+        // 子分类_id
+        type: mongoose.Schema.ObjectId,
+        ref: 'Category',
+    },
+    tweetID: { // tweet_id
+        type: mongoose.Schema.ObjectId,
+        ref: 'tweet',
+        required: true
+    },
+    comments: {
+        // 评论数
+        type: Number,
+        default: 0
+    },
+    likes: {
+        // 点赞用户_id
+        type: Array,
+        default: []
+    },
+    views: {
+        // 浏览数
+        type: Number,
+        default: 0
+    },
+    status: {
+        type: Number,
+        min: 0,
+        max: 3,
+        default: 0,
+        enum: [0, 1, 2, 3] //枚举验证器 发布，审核，隐藏，删除
+    },
+    remarks: { // 管理员操作备注
+        type: String
+    },
+    meta: {
+        createAt: {
+            type: Date,
+            default: Date.now()
+        },
+        updateAt: {
+            type: Date,
+            default: Date.now()
+        }
+    }
+});
+
+///////////////
+
+
+
+
 // 输出数据表模型
 module.exports = {
     userModel,
