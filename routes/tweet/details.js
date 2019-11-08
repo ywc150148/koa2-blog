@@ -63,13 +63,13 @@ router.get('/', async (ctx) => {
     await tweet.save();
 
     let data = JSON.parse(JSON.stringify(tweet)),
-        isLike = false,
         previousId;
 
     if (typeof user !== 'undefined' && data.likes.length > 0) {
-        isLike = data.likes.indexOf(user._id.toString()) > -1 ? true : false;
+        data.isLike  = data.likes.indexOf(user._id.toString()) > -1 ? true : false;
+    }else{
+        data.isLike = false;
     }
-
 
     if (data.comments.length > 0) {
         // 获取最后一条数据的_id，用于分页查询
@@ -79,13 +79,10 @@ router.get('/', async (ctx) => {
     data.reviewQuantity = reviewQuantity;
     data.likes = data.likes.length;
 
-    data.isLike = isLike;
-
     ctx.response.body = {
         code: 0,
         msg: '请求成功',
         data: data,
-        isLike,
         previousId,
         tweet
     }

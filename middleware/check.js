@@ -33,7 +33,8 @@ async function check(ctx, next) {
 
     if (token === 'null' || token == '') {
         code = 1;
-        msg = "未提供token，无权访问";
+        msg = "未提供token，无权访问，请登录";
+        opCode = 1;
     } else {
         // 解析token
         await verify(token, jwtsecret, callBack)

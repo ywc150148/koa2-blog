@@ -43,6 +43,9 @@ function routers(app) {
 	router.use('/v1/tweet/details/:tweetID', require('./tweet/details').routes());
 	// blog
 	router.use('/v1/blog', require('./blog/index').routes());
+	// category
+	router.use('/v1/category', require('./category/index').routes());
+
 }
 
 // 需要验证token的路径
@@ -89,6 +92,14 @@ const requireAuthPath = [{
 	},
 	{
 		path:'/v1/tweet/comment',
+		method: ["post"]
+	},
+	{
+		path:'/v1/blog',
+		method: ["post"]
+	},
+	{
+		path:'/v1/category',
 		method: ["post"]
 	}
 ]

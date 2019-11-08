@@ -552,3 +552,12 @@
 
 
 
+let arr = ['a', 'b', 666],
+
+    cb = (value, index) => {
+        return value + index;
+    }
+
+let newarr = arr.map(cb)
+
+console.log(newarr)
