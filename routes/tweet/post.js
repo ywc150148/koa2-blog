@@ -20,7 +20,7 @@ router.post('/', async function (ctx) {
         content,
         images,
         creatTime: utc,
-        mate: {
+        meta: {
             createAt: utc,
             updateAt: utc
         }

@@ -22,7 +22,7 @@ module.exports = async function (ctx) {
         cover,
         categoryID,
         subCategoryID,
-        mate: {
+        meta: {
             createAt: utc,
             updateAt: utc
         }
