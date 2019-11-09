@@ -3,7 +3,8 @@ const router = new Router()
 
 router
     .get('/', require('./get'))
-    .post('/', require('./post'))
     .get('/details', require('./details'))
+    .post('/', require('./post'))
+    .put('/like', require('./like'))
 
 module.exports = router

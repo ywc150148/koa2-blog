@@ -51,7 +51,6 @@ module.exports = async function (ctx) {
                 blog_list = JSON.parse(JSON.stringify(blog_list));
                 // list = blog_list;
 
-
                 blog_list.forEach(item => {
 
                     let like_index;
@@ -100,6 +99,7 @@ module.exports = async function (ctx) {
             category: categoryList,
             previousId,
             nomore,
+            quantity: list.length,
             count,
         }
 

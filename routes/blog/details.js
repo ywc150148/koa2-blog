@@ -33,9 +33,7 @@ module.exports = async function (ctx) {
 
         // 浏览次数
         res.views++;
-        await res.save();
-
-        console.log("res", res)
+        await res.save();  
 
         let data = JSON.parse(JSON.stringify(res));
 
@@ -46,16 +44,13 @@ module.exports = async function (ctx) {
             data.isLike = false;
         }
 
-        // 是否like
-        // data.isLike = data.likes.indexOf(user._id.toString()) >= 0 ? true : false;
         // like数
         data.likes = data.likes.length;
 
         ctx.response.body = {
             code: 0,
             msg: '查询博客详情成功',
-            data,
-            // isLike
+            data
         }
 
     }).catch(err => {
