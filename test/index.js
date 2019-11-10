@@ -552,12 +552,14 @@
 
 
 
-let arr = ['a', 'b', 666],
+// let arr = ['a', 'b', 666],
 
-    cb = (value, index) => {
-        return value + index;
-    }
+//     cb = (value, index) => {
+//         return value + index;
+//     }
 
-let newarr = arr.map(cb)
+// let newarr = arr.map(cb)
 
-console.log(newarr)
+// console.log(newarr)
+let dd = false;
+console.log("dd",typeof dd)
