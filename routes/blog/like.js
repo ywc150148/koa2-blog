@@ -40,7 +40,7 @@ module.exports = async function (ctx) {
         })
 
     }).catch(err => {
-        ctx.throw(500, "查询内容失败")
+        ctx.throw(500, "查询内容失败")  
     })
 
 }

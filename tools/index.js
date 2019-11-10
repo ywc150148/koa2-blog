@@ -122,7 +122,7 @@ tools.deleteNull = (obj) => {
 tools.removeEmpty = (obj) => {
     Object.keys(obj).forEach(key => {
         if (obj[key] && typeof obj[key] === 'object') tools.removeEmpty(obj[key]);
-        else if ((obj[key] == null || obj[key] == '' || obj[key] === undefined) && obj[key] !== 0) delete obj[key];
+        else if ((obj[key] == null || obj[key] == '' || obj[key] === undefined) && obj[key] !== 0 && typeof obj[key] != 'boolean') delete obj[key];
     });
     return obj;
 };

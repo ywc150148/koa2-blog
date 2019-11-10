@@ -48,17 +48,6 @@ function routers(app) {
 
 }
 
-// 需要验证token的路径
-// const requireAuthPath = [
-// 	'/v1/user/users',
-// 	'/v1/user/logOut',
-// 	'/v1/user/updateInfo',
-// 	'/v1/upload/uploadImg',
-// 	'/v1/tweet/post',
-// 	'/v1/tweet/delete',
-// 	'/v1/tweet/like',
-// ]
-
 /* path: 需要验证token的路径
  * method： all 验证全部请求方式
  *			[get、post、put...] 验证多个请求方式
@@ -96,6 +85,14 @@ const requireAuthPath = [{
 	},
 	{
 		path:'/v1/blog',
+		method: ["post"]
+	},
+	{
+		path:'/v1/blog/like',
+		method: ["all"]
+	},
+	{
+		path:'/v1/blog/comment',
 		method: ["post"]
 	},
 	{

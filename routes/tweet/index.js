@@ -66,7 +66,7 @@ router.get('/', async function (ctx) {
                 });
 
                 // 获取最后一条数据的_id，用于分页查询
-                previousId = list.slice(-1)[0]._id;
+                previousId = list.length>0?list.slice(-1)[0]._id:previousId;
             }
 
             if (authorID) {

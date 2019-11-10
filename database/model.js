@@ -216,7 +216,6 @@ let tweetCommentSchema = new mongoose.Schema({
 });
 
 
-
 // 模式添加方法  根据tweet _id 去查作者信息
 tweetCommentSchema.statics = {
     // fetch，分页查询，"$lt"<id 查询小于{id}后面的数据、{limit}查询条数
@@ -437,7 +436,12 @@ let blogCommentSchema = new mongoose.Schema({
         ref: 'Blog',
         required: true
     },
-    mainCommentID: { // 主评论_id（主评论不存在主评论_id）即被评论内容的评论_id，
+    // 是否主评论
+    isMainComment:{
+        type: Boolean,
+        required: true
+    },
+    mainCommentID: { // 父评论_id
         type: mongoose.Schema.ObjectId,
         ref: 'BlogComment'
     },
