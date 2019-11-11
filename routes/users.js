@@ -4,7 +4,7 @@ const userModel = require("../database/model").userModel
 
 router.get('/', async (ctx) => {
 
-    // 删除所有数据
+    // 删除所有数据用户
     // const removeAllUser = async () => {
     //     let err;
     //     try {
@@ -19,24 +19,6 @@ router.get('/', async (ctx) => {
     // }
     // let rmerr = await removeAllUser();
 
-    // 查询所有用户
-    // const findAllUser = async () => {
-    //     let err, doc;
-    //     try {
-    //         doc = await userModel.find({}, {
-    //             password: 0,
-    //             token: 0,
-    //             name: 0,
-    //         });
-    //     } catch (err) {
-    //         err = err
-    //     }
-    //     return {
-    //         err,
-    //         doc
-    //     }
-    // }
-
     await userModel.find({}, {
         password: 0,
         token: 0,
@@ -44,20 +26,17 @@ router.get('/', async (ctx) => {
     }).then(doc => {
 
         ctx.response.body = {
-            code:0,
-            msg:"成功",
+            code: 0,
+            msg: "成功",
             doc,
         }
     }).catch(err => {
         ctx.response.body = {
-            code:0,
+            code: 0,
             err,
-            msg:"查询失败"
+            msg: "查询失败"
         }
     })
-
-
-
 })
 
 
