@@ -24,19 +24,29 @@ router.get('/', async (ctx) => {
     const findAllUser = async () => {
         let err, doc;
         try {
-            doc = await userModel.find({});
+            doc = await userModel.find({}, {
+                password: 0,
+                token: 0,
+                name: 0,
+            });
         } catch (err) {
             err = err
         }
-        return {err,doc}
+        return {
+            err,
+            doc
+        }
     }
 
-    let {err,doc} = await findAllUser();
+    let {
+        err,
+        doc
+    } = await findAllUser();
 
     ctx.response.body = {
         err,
         doc,
-        ss:ctx.state.result
+        ss: ctx.state.result
     }
 
 })
