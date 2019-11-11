@@ -20,33 +20,43 @@ router.get('/', async (ctx) => {
     // let rmerr = await removeAllUser();
 
     // 查询所有用户
-    const findAllUser = async () => {
-        let err, doc;
-        try {
-            doc = await userModel.find({}, {
-                password: 0,
-                token: 0,
-                name: 0,
-            });
-        } catch (err) {
-            err = err
+    // const findAllUser = async () => {
+    //     let err, doc;
+    //     try {
+    //         doc = await userModel.find({}, {
+    //             password: 0,
+    //             token: 0,
+    //             name: 0,
+    //         });
+    //     } catch (err) {
+    //         err = err
+    //     }
+    //     return {
+    //         err,
+    //         doc
+    //     }
+    // }
+
+    await userModel.find({}, {
+        password: 0,
+        token: 0,
+        name: 0,
+    }).then(doc => {
+
+        ctx.response.body = {
+            code:0,
+            msg:"成功",
+            doc,
         }
-        return {
+    }).catch(err => {
+        ctx.response.body = {
+            code:0,
             err,
-            doc
+            msg:"查询失败"
         }
-    }
+    })
 
-    let {
-        err,
-        doc
-    } = await findAllUser();
 
-    ctx.response.body = {
-        err,
-        doc,
-        ss: ctx.state.result
-    }
 
 })
 
