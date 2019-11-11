@@ -17,7 +17,6 @@ router.get('/', async (ctx) => {
 
     //     return err
     // }
-
     // let rmerr = await removeAllUser();
 
     // 查询所有用户
