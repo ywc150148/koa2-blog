@@ -12,7 +12,7 @@
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.8.2",
-    "koa-bodyparser": "^3.2.0",
+    "koa-bodyparser": "^4.3.0",
     "koa-nunjucks-2": "^3.0.2",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
